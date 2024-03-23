@@ -1,0 +1,18 @@
+namespace: evgeni
+name: router
+version: 1.0.0
+readme: README.md
+authors:
+  - Evgeni Golov (github.com/evgeni)
+description: Manage various services usually found on a home router
+license_file: LICENSE
+tags:
+  - router
+  - system
+repository: https://github.com/evgeni/evgeni.router
+homepage: https://github.com/evgeni/evgeni.router
+issues: https://github.com/evgeni/evgeni.router/issues
+build_ignore:
+  - .gitignore
+  - changelogs/.plugin-cache.yaml
+  - venv
