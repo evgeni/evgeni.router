@@ -3,4 +3,4 @@ exclude_paths:
   - .github
 skip_list:
   - var-naming[no-role-prefix]
-var_naming_pattern: "^(__)?router_[a-z_][a-z0-9_]*$"
+# var_naming_pattern: "^(__)?router_[a-z_][a-z0-9_]*$"
