@@ -8,7 +8,7 @@ description: Manage various services usually found on a home router
 license_file: LICENSE
 tags:
   - router
-  - system
+  - infrastructure
 repository: https://github.com/evgeni/evgeni.router
 homepage: https://github.com/evgeni/evgeni.router
 issues: https://github.com/evgeni/evgeni.router/issues
