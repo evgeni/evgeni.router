@@ -50,10 +50,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+      - name: Setup libvirt for Vagrant
+        run: |
+          sudo add-apt-repository --yes ppa:evgeni/vagrant
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends vagrant vagrant-libvirt libvirt-clients libvirt-daemon-system libvirt-daemon qemu-system-x86 qemu-utils dnsmasq
+          sudo chmod 666 /var/run/libvirt/libvirt-sock
       - name: Install Ansible
         run: pip install --upgrade https://github.com/ansible/ansible/archive/${{ matrix.ansible }}.tar.gz
       - name: Install dependencies
-        run: pip install molecule molecule-plugins pytest pytest-ansible pytest-xdist
+        run: pip install molecule molecule-plugins[podman,vagrant] pytest pytest-ansible pytest-xdist
       - name: Install collection dependencies
         run: |
           sed -i '/prerun:/ s/false/true/' .config/molecule/config.yml
