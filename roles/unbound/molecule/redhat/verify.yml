@@ -1,0 +1,15 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check unbound service
+      ansible.builtin.service:
+        name: unbound
+        state: started
+      register: _unbound_service
+
+    - name: Assert not changed
+      ansible.builtin.assert:
+        that:
+          - not _unbound_service.changed

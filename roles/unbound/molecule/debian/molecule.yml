@@ -1,0 +1,13 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: podman
+platforms:
+  - name: debian-bookworm
+    image: debian:12
+    command: /sbin/init
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

@@ -55,7 +55,10 @@ jobs:
       - name: Install dependencies
         run: pip install molecule molecule-plugins pytest pytest-ansible pytest-xdist
       - name: Install collection dependencies
-        run: cd roles/repository && molecule dependency -s suse
+        run: |
+          sed -i '/prerun:/ s/false/true/' .config/molecule/config.yml
+          pushd roles/unbound && molecule dependency -s debian && popd
+          sed -i '/prerun:/ s/true/false/' .config/molecule/config.yml
       - name: Run tests
         run: pytest -vv --numprocesses 4 --molecule roles/
         env:

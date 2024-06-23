@@ -1,0 +1,33 @@
+---
+- name: Load OS specific variables
+  ansible.builtin.include_vars:
+    file: "{{ ansible_os_family }}.yml"
+
+- name: Install unbound
+  ansible.builtin.package:
+    name: "{{ unbound_package }}"
+    state: present
+
+# https://blog.cavelab.dev/2021/03/unbound-local-dns/
+# https://docs.pi-hole.net/ftldns/blockingmode/
+- name: Fetch unbound adservers.conf
+  ansible.builtin.get_url:
+    url: 'https://pgl.yoyo.org/adservers/serverlist.php?hostformat=unbound&showintro=0&mimetype=plaintext&useip=0.0.0.0'
+    dest: "{{ unbound_etc }}/adservers.conf"
+    mode: '0644'
+  notify: Restart unbound
+  when: unbound_adservers
+
+- name: Configure unbound
+  ansible.builtin.template:
+    dest: "{{ unbound_etc }}/unbound.conf"
+    src: unbound.conf.j2
+    mode: '0644'
+    validate: unbound-checkconf %s
+  notify: Restart unbound
+
+- name: Enable and start unbound service
+  ansible.builtin.service:
+    name: "{{ unbound_service }}"
+    state: started
+    enabled: true

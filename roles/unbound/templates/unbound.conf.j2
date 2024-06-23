@@ -1,0 +1,11 @@
+server:
+  interface: 127.0.0.1
+  interface: ::1
+  {% for iface in unbound_interfaces -%}
+  {%- set iface_mask=ansible_facts[iface]['ipv4'][0]['network']+'/'+ansible_facts[iface]['ipv4'][0]['netmask'] -%}
+  interface: {{ ansible_facts[iface]['ipv4'][0]['address'] }}
+  access-control: {{ iface_mask | ansible.utils.ipaddr('network/prefix') }} allow
+  {% endfor -%}
+  {% if unbound_adservers -%}
+  include: {{ unbound_etc }}/adservers.conf
+  {%- endif -%}
