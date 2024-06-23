@@ -12,6 +12,8 @@ tags:
 repository: https://github.com/evgeni/evgeni.router
 homepage: https://github.com/evgeni/evgeni.router
 issues: https://github.com/evgeni/evgeni.router/issues
+dependencies:
+  ansible.utils: '>= 2.5.0'
 build_ignore:
   - .gitignore
   - changelogs/.plugin-cache.yaml
