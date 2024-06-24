@@ -1,0 +1,13 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: podman
+platforms:
+  - name: centosstream10
+    image: quay.io/centos/centos:stream10-development
+    command: /sbin/init
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

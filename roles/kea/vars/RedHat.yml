@@ -1,0 +1,4 @@
+---
+kea_package: kea
+kea_service: kea-dhcp4
+kea_etc: /etc/kea
