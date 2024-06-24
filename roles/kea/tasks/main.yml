@@ -1,0 +1,39 @@
+---
+- name: Load OS specific variables
+  ansible.builtin.include_vars:
+    file: "{{ ansible_os_family }}.yml"
+
+- name: Install kea
+  ansible.builtin.package:
+    name: "{{ kea_package }}"
+    state: present
+
+- name: Configure keactl
+  ansible.builtin.lineinfile:
+    path: "{{ kea_etc }}/keactrl.conf"
+    regexp: "^#?{{ item.name }}="
+    line: "{{ item.name }}={{ item.value }}"
+  loop:
+    - name: dhcp4
+      value: "yes"
+    - name: dhcp6
+      value: "no"
+    - name: dhcp_ddns
+      value: "no"
+  notify: Restart kea
+  when:
+    - ansible_service_mgr != "systemd"
+
+- name: Configure kea-dhcp4
+  ansible.builtin.copy:
+    dest: "{{ kea_etc }}/kea-dhcp4.conf"
+    content: "{{ kea_dhcp4_config | to_nice_json }}"
+    mode: '0644'
+    validate: kea-dhcp4 -t %s
+  notify: Restart kea
+
+- name: Enable and start kea service
+  ansible.builtin.service:
+    name: "{{ kea_service }}"
+    state: started
+    enabled: true

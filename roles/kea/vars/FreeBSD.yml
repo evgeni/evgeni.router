@@ -1,0 +1,4 @@
+---
+kea_package: net/kea
+kea_service: kea
+kea_etc: /usr/local/etc/kea

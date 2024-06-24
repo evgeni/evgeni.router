@@ -1,0 +1,12 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+platforms:
+  - name: freebsd
+    box: generic/freebsd14
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

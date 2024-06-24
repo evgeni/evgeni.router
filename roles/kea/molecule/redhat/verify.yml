@@ -1,0 +1,15 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check kea service
+      ansible.builtin.service:
+        name: kea-dhcp4
+        state: started
+      register: _kea_service
+
+    - name: Assert not changed
+      ansible.builtin.assert:
+        that:
+          - not _kea_service.changed

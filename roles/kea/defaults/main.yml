@@ -1,0 +1,30 @@
+---
+kea_dhcp4_interfaces: []
+kea_dhcp4_subnets:
+  - pools:
+      - "pool": "192.0.42.10 - 192.0.42.200"
+    subnet: "192.0.42.0/24"
+    id: 42
+    option-data:
+      - name: domain-name-servers
+        data: 192.0.42.254
+      - name: routers
+        data: 192.0.42.254
+  - pools:
+      - "pool": "192.0.43.10 - 192.0.43.200"
+    subnet: "192.0.43.0/24"
+    id: 43
+    option-data:
+      - name: domain-name-servers
+        data: 192.0.43.254
+      - name: routers
+        data: 192.0.43.254
+  - pools:
+      - "pool": "192.0.66.10 - 192.0.66.200"
+    subnet: "192.0.66.0/24"
+    id: 66
+    option-data:
+      - name: domain-name-servers
+        data: 192.0.66.254
+      - name: routers
+        data: 192.0.66.254
